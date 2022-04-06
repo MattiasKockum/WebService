@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/MattiasKockum/WebService/issues"
   },
-  "homepage": "https://github.com/MattiasKockum/WebService#readme"
+  "homepage": "https://github.com/MattiasKockum/WebService#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "rivescript": "^2.2.0"
+  }
 }
