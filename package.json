@@ -1,0 +1,22 @@
+{
+  "name": "webservice",
+  "version": "1.0.0",
+  "description": "A webservice as a school project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattiasKockum/WebService.git"
+  },
+  "keywords": [
+    "webservice"
+  ],
+  "author": "Mattias KOCKUM, Tristan HASCOËT, Xiong TUHANG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MattiasKockum/WebService/issues"
+  },
+  "homepage": "https://github.com/MattiasKockum/WebService#readme"
+}
