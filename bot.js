@@ -32,11 +32,6 @@ function loading_done() {
   // RiveScript remembers user data by their username and can tell
   // multiple users apart.
   let username = "local-user";
-
-  // NOTE: the API has changed in v2.0.0 and returns a Promise now.
-  riveBot.reply(username, "Hello, riveBot!").then(function(reply) {
-    console.log("The riveBot says: " + reply);
-  });
   */
 }
 
