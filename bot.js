@@ -1,16 +1,17 @@
 // Imports
 
 import express from "express"
-import { token } from './config.js'
 
 // Define "require"
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
+import RiveScript from "rivescript"
+
+// Discord modules and token
 const { Client, Intents } = require("discord.js")
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
-
-import RiveScript from "rivescript"
+import { discordToken } from './config.js'
 
 
 // riveBot part
@@ -73,4 +74,4 @@ bot.on('message', message => {
 	}
 )
 
-bot.login(token)
+bot.login(discordToken)
