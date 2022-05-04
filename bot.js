@@ -8,11 +8,6 @@ const require = createRequire(import.meta.url);
 
 import RiveScript from "rivescript"
 
-// Discord modules and token
-const { Client, Intents } = require("discord.js")
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
-import { discordToken } from './config.js'
-
 
 // riveBot part
 
@@ -42,6 +37,11 @@ function loading_error(error, filename, lineno) {
 
 
 // Discord bot part
+
+// Discord modules and token
+const { Client, Intents } = require("discord.js")
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
+import { discordToken } from './config.js'
 
 bot.on('ready', function () {console.log("Je suis connecté !")})
 

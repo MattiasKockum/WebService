@@ -90,7 +90,21 @@
 
        </div>
        <div id="send">
-           <input id="msg_send" style="width: 450px;"></input><button id="button_send">send</button>
+           <input id="msg_send" style="width: 450px;"></input>
+		   <button id="button_send">send</button>
+		   <script>
+			   var x = document.getElementById("msg_send");
+			   x.addEventListener(
+								  "keyup", function()
+								  {
+													 if (event.keyCode === 13)
+													 {
+																		event.preventDefault();
+																		document.getElementById("button_send").click();
+													 }
+								  }
+			  );
+		   </script>
        </div>
     </div>
 </body>

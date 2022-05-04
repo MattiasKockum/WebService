@@ -1,2 +1,2 @@
-export const discordToken = "OTY5OTQwMzY1ODAzMTU5NTYy.Ym0tWw.5b07NdDcfCoq5Ui4dAGb1ks9pM8"
+export const discordToken = "OTY5OTQwMzY1ODAzMTU5NTYy.Ym0tWw.jK4-AjgmW96zInQZX4MQvXewAlg"
 export default {discordToken : discordToken}
