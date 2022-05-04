@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+        <!-- Temp Favicon Error Fix-->
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+        <title>chat robot</title>
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/cover/">
+     
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+	    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	    <script src="./js/bootstrap.min.js"></script>
+        <script src="./script.js"></script>
+      </head>
+    
+ 
+<body style="margin-left: 10px;">
+    <div id="title"><h1>chat bot</h1> </div>
+    <hr>
+    <div  class="table">
+        <table id="robots_table" class="table  table-striped" style="width: 500px;">
+            <thead>
+                <tr>
+                    <th>name</th> <th>status</th> <th>operation</th> 
+                </tr>
+            </thead>
+           <tbody id="robots_list">
+
+           </tbody>
+            
+        </table>
+       
+    </div>
+    <hr>
+    <br>
+    <div id="create">
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#createRobot">create robot</button>
+     
+        <!-- Modal for project creation-->
+        <div class="modal fade" id="createRobot" tabindex="-1" role="dialog" aria-labelledby="createProjectTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="createRobotTitle">Create Robot</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  name：<input id="create_robot_name" type="text" id="robot_name" placeholder="name">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            
+                  <button id = "create_clicked" type="button" class="btn btn-primary">Create</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- Modal for mod-->
+        <div class="modal fade" id="modRobot" tabindex="-1" role="dialog" aria-labelledby="modRobottTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modRobotTitle">Mod Robot</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  name：<input id="mod_robot_name" type="text" id="robot_name" placeholder="name">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            
+                  <button id = "mod_clicked" type="button" class="btn btn-primary">OK</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="chat-with-robot">
+       <div id="robot-info">机器人信息：<span id="chat_robot_info"></span></div>
+       <div id="content">
+            <textarea id="chat_content" style="width: 500px ; height: 300px; " disabled="true">
+
+            </textarea>
+
+       </div>
+       <div id="send">
+           <input id="msg_send" style="width: 450px;"></input><button id="button_send">send</button>
+       </div>
+    </div>
+</body>
+ 
+</html>
