@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/MattiasKockum/WebService#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "discord.js": "^13.6.0",
     "express": "^4.17.3",
-    "rivescript": "^2.2.0"
+    "lowdb": "^3.0.0",
+    "rivescript": "^2.2.0",
+    "uuid": "^8.3.2"
   }
 }
