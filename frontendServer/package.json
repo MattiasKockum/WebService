@@ -1,22 +1,23 @@
 {
-  "name": "mainapi",
+  "name": "frontend_server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cons": "^0.0.2",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "discord.js": "^13.7.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
-    "lowdb": "^3.0.0",
-    "rivescript": "^2.2.0",
-    "uuid": "^8.3.2"
+    "lowdb": "^3.0.0"
   }
 }

@@ -1,5 +1,5 @@
 import { Client, Intents } from  "discord.js"
-import { discordToken } from '../../config.js'
+const discordToken = "OTYxMjYyMDUxMTkwMjYzODY4.Go1_y9.lA2R1InERZDQUFthlmt5Wlbb2GEGmmgrGT1TA0"
 
 class Mouth{
 
@@ -20,7 +20,7 @@ class Mouth{
             partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
             intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
         })
-        this.bot.on('ready', function () { console.log("robot connect !") })
+        this.bot.on('ready', function () {  })
      
         this.bot.on('messageCreate', message => {
            

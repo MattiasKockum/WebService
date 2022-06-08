@@ -1,22 +1,17 @@
+import {} from 'dotenv/config'
 import express from 'express'; 
 import bodyParser  from 'body-parser'  ;
 import cors  from 'cors'; 
-import path from 'path'
-import {v4 as uuidv4} from 'uuid'
+import path from 'path';
+import {v4 as uuidv4} from 'uuid';
 import { BotService } from "./model/BotService_LowDbImpl.mjs";
-import { ChatBot } from './model/ChatBot.mjs'
+import { ChatBot } from './model/ChatBot.mjs';
+import jwt from "jsonwebtoken";
 //Question : How do I assigne a task to a person? : It is a PATCH to a Task...
 const port = 3001
 
-const botService = await BotService.create()
-console.log(botService)
-var chatBotList = {}
-//mod by xx :init chatBotList
-let bots = botService.getBots()
-for (let i = 0; i < bots.length;++i) {
-	let chatBot = new ChatBot()
-	chatBotList[bots[i].id]=chatBot
-}
+let botService;
+let chatBotList = {};
 
 const app = express();
 
@@ -24,129 +19,112 @@ const app = express();
 app.use(cors())
 ////
 
-
-
-app.use(express.json())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.use( function ( req, res, next ) {
     const { url, path: routePath }  = req ;
     console.log( 'Request: Timestamp:', new Date().toLocaleString(), ', URL (' + url + '), PATH (' + routePath + ').' ) ;
     next();
 });
 
-
 // A middle ware for serving static files
-console.log (path.resolve())
 app.use('/', express.static(path.join(`${path.resolve()}/interfaceAdministrateur`, '')))
 
-app.get('/server/bots', (req,res) => {
-	let bots = botService.getBots()
-	let botsRes=[]
-	for (let bot of bots) {
-		botsRes.push({
-			id: bot.id,
-			name: bot.name,
-			status:bot.status
-		})
-	}
-	return res.send({
-		code: 0,
-		data: {
-			bots:botsRes
+function validateToken(req, res, next) {
+	//get token from request header
+	try{
+		console.log(req.headers["authorization"]);
+		const authHeader = req.headers["authorization"];
+		const token = authHeader.split(" ")[1];
+		if (token == null){
+			res.sendStatus(400).send("Token not present");
 		}
-	})
-})
-app.get('/server/bot', (req,res) => {
-	let bots = botService.getBots()
-	let index = bots.findIndex(d => d.id = req.body.id)
-	if (index > -1) {
-		return res.send({
-			code: 0,
-			data: {
-				id: bots[index].id,
-				name: bots[index].name,
-				status:bots[index].status
-			}
-		})
+		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+			if (err) { 
+				 res.status(403).send("Token invalid");
+			 }
+			 else {
+				 req.user = user;
+				 next(); //proceed to the next action in the calling function
+			 }
+		}); //end of jwt.verify()
 	}
-	return res.send({
-		code: -1,
-		msg:'not find bot'
-	})
-})
+	catch(err){
+		res.sendStatus(400).send("Token not present");
+	}
+	//the request header contains the token "Bearer <token>", split the string and use the second value in the split array.
+}
 
-app.post('/server/bot', (req, res) => {
-	let id = uuidv4()
-	botService.addBot({
-		id: id,
-		name: req.body.name,
-		status: 1,
-	}).then(dat => {
-		let chatBot = new ChatBot()
-		chatBotList[id] =chatBot
-		res.send({
-			code: 0,
-			data: {
-				id: id,
-				name: req.body.name,
-				status:1
-			}
-		})
-	}).catch(e => {
-	
-		console.error(e)
-		res.send({
-			code: -1,
-			msg:"create failed"
-		})
-	
-	})
-	
-	
-
-	
-})
-
-app.delete('/server/bot', (req,res) => {
-	botService.removeBot(req.body.id).then(() => {
-		if (chatBotList[req.body.id]) {
-			delete chatBotList[req.body.id]
-		}
-		res.send({
-			code: 0,
-		})
-	}).catch(e => {
-		
-		res.send({
-			code: -1,
-			msg:"delete failed"
-		})
-	})
+app.get('/bots', (req,res) => {
+	try{
+		let botsList = botService.getBots();
+		res.status(200).json(botsList);
+	}
+	catch(err){
+		console.log(`Error ${err} thrown... stack is : ${err.stack}`);
+		res.status(404).send('NOT FOUND');
+	}
 })
 
 
-app.patch('/server/bot', (req, res) => {
-	botService.updateBot(req.body.id,req.body).then(() => {
-		res.send({
-			code: 0,
-		})
-	}).catch(e => {
-		console.log(e)
-		res.send({
-			code: -1,
-			msg:"update failed"
-		})
-	})
+app.get('/bots/:id', (req,res) => {
+	let id = req.params.id;
+	try{
+		let botsList = botService.getBot(id);
+		res.status(200).json(botsList);
+	}
+	catch(err){
+		console.log(`Error ${err} thrown... stack is : ${err.stack}`);
+		res.status(404).send('NOT FOUND');
+	}
 })
 
-app.post('/server/chat', (req, res) => {
-	if (chatBotList[req.body.botID]) {
-		chatBotList[req.body.botID].mouth.myTalk(req.body.user, req.body.msg, (repl) => {
-			res.send({
-				code: 0,
-				msg:repl
-			})
+app.post('/bots',validateToken, (req, res) => {
+	
+	let id = uuidv4();
+
+	botService.addBot({id:id, name:req.body.name, status:1})
+	.then((message) => {
+		res.status(201).send("Bot created");
+	}).catch(err =>{
+		console.log(`Error ${err} thrown... stack is : ${err.stack}`);
+		res.status(404).send('BOT CREATION FAILED');
+	});
+});
+
+app.delete('/bots/:id',validateToken, (req,res) => {
+	console.log("ok")
+	let id = req.params.id;
+	console.log(id);
+	try{
+		botService.removeBot(id).then((text) => {
+			res.status(200).send(text);
+		});
+	}
+	catch(err){
+		console.log(`Error ${err} thrown... stack is : ${err.stack}`);
+		res.status(404).send('NOT FOUND');
+	}
+})
+
+
+app.patch('/bots/:id',validateToken, (req, res) => {
+	botService.updateBot(req.params.id, req.body)
+	.then((message) => {
+		res.status(200).send("Bot updated");
+	}).catch(err =>{
+		console.log(`Error ${err} thrown... stack is : ${err.stack}`);
+		res.status(404).send('BOT CREATION FAILED');
+	});
+})
+
+app.post('/chat/:id', (req, res) => {
+	console.log("recu");
+	if (chatBotList[req.params.id]) {
+		chatBotList[req.params.id].mouth.myTalk(req.body.user, req.body.msg, (repl) => {
+			console.log(repl);
+			res.send(repl);
 		})
 	}
 	else {
@@ -157,6 +135,14 @@ app.post('/server/chat', (req, res) => {
 	}
 })
 
-app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`)
+BotService.create().then(bs => {
+	botService = bs;
+	chatBotList = {};
+	let bots = bs.getBots();
+	for(let i=0; i<bots.length; i++){
+		chatBotList[bots[i].id] = new ChatBot();
+	}
+	app.listen(port, () => {
+		console.log(`Example app listening at http://localhost:${port}`)
+	});
 });

@@ -50,17 +50,22 @@ class Brain{
      * mod by xx
      */
     async think(userName, msg) {
-        if (!this.riveBot) {
-            throw("brain not init")
+        try{
+            if (!this.riveBot) {
+                throw("brain not init")
+            }
+            let rep = await this.riveBot.reply(userName, msg)
+            if(rep!= "ERR: No Reply Matched"){
+                return rep
+            }
+            else {
+                return "I do not understand"
+            }
         }
-        let rep = await this.riveBot.reply(userName, msg)
-        if(rep!= "ERR: No Reply Matched"){
-            return rep
+        catch (e) {
+            this.riveBot = null
+            throw ('Error init brain ' + e)
         }
-        else {
-            return "I do not understand"
-        }
-  
     }
 }
 

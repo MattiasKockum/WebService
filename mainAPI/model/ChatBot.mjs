@@ -22,17 +22,17 @@ class ChatBot {
 			myself: "myself",
 			rpg:"rpg"
 		})
-		this.brain.initBrain()
+		this.brain.initBrain();
 		//init mouth
 		this.mouth = new Mouth(
 			//talk function
-			(authName,message,responseChannel) =>{
-				this.brain.think(authName, message).then(msg => {
-					responseChannel(msg)
-				}).catch(err => {
-					responseChannel('I can not think')
-				})
+		(authName,message,responseChannel) =>{
+			this.brain.think(authName, message).then(msg => {
+				responseChannel(msg)
+			}).catch(err => {
+				responseChannel('I can not think')
 			})
+		})
 	}
 }
 

@@ -4,6 +4,61 @@
       "id": "5a63e5d0-870a-4a32-a5fe-6e4113aa7ac5",
       "name": "Fares",
       "status": 1
+    },
+    {
+      "id": "7061de60-1c23-41ab-9f42-e00692c45b41",
+      "name": "Mattias",
+      "status": 1
+    },
+    {
+      "id": "f2884e16-6b1c-4d39-92a3-5ca840e8f21e",
+      "name": "Tristan",
+      "status": 1
+    },
+    {
+      "id": "276039e5-2f5a-4bb3-92a0-e48caf4ae48a",
+      "name": "Yuhang",
+      "status": 1
+    },
+    {
+      "id": "31800b3c-4c53-4ece-9882-e4eaca815528",
+      "name": "Bot 1",
+      "status": 1
+    },
+    {
+      "id": "f09610df-04da-494a-a05a-53f34cee0a7b",
+      "name": "Bot 2",
+      "status": 1
+    },
+    {
+      "id": "5f97d1f5-c575-4777-a620-7d0b9a633f9d",
+      "name": "Bot 3",
+      "status": 1
+    },
+    {
+      "id": "f2ef9675-3c66-412f-af94-efe047fd0a14",
+      "name": "Bot 4",
+      "status": 1
+    },
+    {
+      "id": "7bc5609f-b29a-4869-945a-d9be8ea877b0",
+      "name": "Bot 5",
+      "status": 1
+    },
+    {
+      "id": "aca5fb54-19e0-4b0c-adaa-37499f921729",
+      "name": "Bot 6",
+      "status": 1
+    },
+    {
+      "id": "78a2bb8d-3e6c-4991-8e1a-fd886f2a44f7",
+      "name": "Bot 7",
+      "status": 1
+    },
+    {
+      "id": "cc9bfe67-f8ed-4ebc-8228-81909ffbdc0b",
+      "name": "Bot 8",
+      "status": 1
     }
   ]
 }

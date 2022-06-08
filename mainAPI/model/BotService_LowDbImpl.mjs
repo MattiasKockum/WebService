@@ -75,7 +75,7 @@ class BotService{
 		if(index >-1 ){
 			this.db.data.bots.splice(index,1);
 			await this.db.write();
-			return `removed task of id ${id}`;
+			return `removed bot of id ${id}`;
 		}
 		throw new Error(`cannot find bot of id ${id}`);
 	}
